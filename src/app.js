@@ -7,6 +7,7 @@ app.use(cors());
 
 const blogRouter = require('./routes/blogRoutes');
 const propertyRouter = require('./routes/propertyRoutes');
+const commentRouter = require('./routes/commentRoutes');
 
 // initial server start
 app.get('/', (req, res) => {
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 // routes mounting
 app.use('/api/v1/blogs', blogRouter);
 app.use('/api/v1/properties', propertyRouter);
+app.use('/api/v1/comments', commentRouter);
 
 // handle error for unknown routes
 app.all('*', (req, res, next) => {
