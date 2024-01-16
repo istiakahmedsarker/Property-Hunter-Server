@@ -1,14 +1,14 @@
-const Blog = require('../models/blogModel');
+const Comment = require('../models/commentModel');
 
-const getAllBlog = async (req, res) => {
+const getAllComment = async (req, res) => {
   try {
-    const blogs = await Blog.find();
+    const comments = await Comment.find();
 
     res.status(200).json({
       status: 'success',
-      result: blogs.length,
+      result: comments.length,
       data: {
-        blogs,
+        comments,
       },
     });
   } catch (error) {
@@ -19,14 +19,15 @@ const getAllBlog = async (req, res) => {
   }
 };
 
-const createBlog = async (req, res) => {
+const createComment = async (req, res) => {
   try {
-    const blog = await Blog.create(req.body);
+    console.log(req.body);
+    const comment = await Comment.create(req.body);
 
     res.status(200).json({
       status: 'success',
       data: {
-        blog,
+        comment,
       },
     });
   } catch (err) {
@@ -37,10 +38,10 @@ const createBlog = async (req, res) => {
   }
 };
 
-const deleteBlog = async (req, res) => {
+const deleteComment = async (req, res) => {
   try {
     const { id } = req.params;
-    await Blog.findByIdAndDelete(id);
+    await Comment.findByIdAndDelete(id);
     res.status(204).json({
       status: 'success',
       data: null,
@@ -53,4 +54,4 @@ const deleteBlog = async (req, res) => {
   }
 };
 
-module.exports = { getAllBlog, createBlog, deleteBlog };
+module.exports = { getAllComment, createComment, deleteComment };
