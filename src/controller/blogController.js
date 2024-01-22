@@ -1,4 +1,4 @@
-const Blog = require('../models/blogModel');
+const Blog = require('../schema/blogModel');
 
 const getAllBlog = async (req, res) => {
   try {
@@ -11,7 +11,26 @@ const getAllBlog = async (req, res) => {
         blogs,
       },
     });
-  } catch (error) {
+  } catch (err) {
+    res.status(400).json({
+      status: 'Fail',
+      message: err,
+    });
+  }
+};
+
+const getSingleBlog = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const blog = await Blog.findById(id);
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        blog,
+      },
+    });
+  } catch (err) {
     res.status(400).json({
       status: 'Fail',
       message: err,
@@ -53,4 +72,4 @@ const deleteBlog = async (req, res) => {
   }
 };
 
-module.exports = { getAllBlog, createBlog, deleteBlog };
+module.exports = { getAllBlog, createBlog, deleteBlog, getSingleBlog };

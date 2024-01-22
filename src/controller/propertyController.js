@@ -1,17 +1,36 @@
-const Property = require('../models/propertyModel');
+const Property = require('../schema/propertyModel');
 
 const getAllProperty = async (req, res) => {
   try {
-    const property = await Property.find();
+    const properties = await Property.find();
 
     res.status(200).json({
       status: 'success',
-      result: property.length,
+      result: properties.length,
+      data: {
+        properties,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'Fail',
+      message: err,
+    });
+  }
+};
+
+const getSingleProperty = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const property = await Property.findById(id);
+
+    res.status(200).json({
+      status: 'success',
       data: {
         property,
       },
     });
-  } catch (error) {
+  } catch (err) {
     res.status(400).json({
       status: 'Fail',
       message: err,
@@ -29,7 +48,7 @@ const createProperty = async (req, res) => {
         newProperty,
       },
     });
-  } catch (error) {
+  } catch (err) {
     res.status(400).json({
       status: 'Fail',
       message: err,
@@ -37,4 +56,4 @@ const createProperty = async (req, res) => {
   }
 };
 
-module.exports = { getAllProperty, createProperty };
+module.exports = { getAllProperty, createProperty, getSingleProperty };
