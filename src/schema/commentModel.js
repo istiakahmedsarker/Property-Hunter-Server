@@ -7,7 +7,7 @@ const commentSchema = new mongoose.Schema({
   },
   commentText: {
     type: String,
-    required: [true, 'A comment must have  comment text'],
+    // required: [true, 'A comment must have  comment text'],
   },
   rating: {
     type: Number,
