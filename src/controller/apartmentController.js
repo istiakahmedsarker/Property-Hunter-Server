@@ -1,14 +1,14 @@
-const Property = require('../schema/propertyModel');
+const Apartment = require('../schema/apartmentModel');
 
-const getAllProperty = async (req, res) => {
+const getAllApartment = async (req, res) => {
   try {
-    const properties = await Property.find();
+    const apartments = await Apartment.find();
 
     res.status(200).json({
       status: 'success',
-      result: properties.length,
+      result: apartments.length,
       data: {
-        properties,
+        apartments,
       },
     });
   } catch (err) {
@@ -19,15 +19,15 @@ const getAllProperty = async (req, res) => {
   }
 };
 
-const getSingleProperty = async (req, res) => {
+const getSingleApartment = async (req, res) => {
   const { id } = req.params;
   try {
-    const property = await Property.findById(id);
+    const apartment = await Apartment.findById(id);
 
     res.status(200).json({
       status: 'success',
       data: {
-        property,
+        apartment,
       },
     });
   } catch (err) {
@@ -38,14 +38,14 @@ const getSingleProperty = async (req, res) => {
   }
 };
 
-const createProperty = async (req, res) => {
+const createApartment = async (req, res) => {
   try {
-    const newProperty = await Property.create(req.body);
+    const newApartment = await Apartment.create(req.body);
 
     res.status(200).json({
       status: 'success',
       data: {
-        newProperty,
+        newApartment,
       },
     });
   } catch (err) {
@@ -56,4 +56,4 @@ const createProperty = async (req, res) => {
   }
 };
 
-module.exports = { getAllProperty, createProperty, getSingleProperty };
+module.exports = { getAllApartment, createApartment, getSingleApartment };

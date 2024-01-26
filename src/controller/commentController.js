@@ -1,4 +1,4 @@
-const Comment = require('../models/commentModel');
+const Comment = require('../schema/commentModel');
 
 const getAllComment = async (req, res) => {
   try {
@@ -11,7 +11,26 @@ const getAllComment = async (req, res) => {
         comments,
       },
     });
-  } catch (error) {
+  } catch (err) {
+    res.status(400).json({
+      status: 'Fail',
+      message: err,
+    });
+  }
+};
+
+const getSingleComment = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const comment = await Comment.findById(id);
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        comment,
+      },
+    });
+  } catch (err) {
     res.status(400).json({
       status: 'Fail',
       message: err,
@@ -54,4 +73,9 @@ const deleteComment = async (req, res) => {
   }
 };
 
-module.exports = { getAllComment, createComment, deleteComment };
+module.exports = {
+  getAllComment,
+  createComment,
+  deleteComment,
+  getSingleComment,
+};
