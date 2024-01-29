@@ -2,7 +2,7 @@ const Blog = require('../schema/blogModel');
 
 const getAllBlog = async (req, res) => {
   try {
-    const blogs = await Blog.find();
+    const blogs = await Blog.find().select('-__v');
 
     res.status(200).json({
       status: 'success',
@@ -22,7 +22,10 @@ const getAllBlog = async (req, res) => {
 const getSingleBlog = async (req, res) => {
   const { id } = req.params;
   try {
-    const blog = await Blog.findById(id);
+    const blog = await Blog.findById(id).populate({
+      path: 'comments',
+      select: '-_id -__v -blogId',
+    });
 
     res.status(200).json({
       status: 'success',
