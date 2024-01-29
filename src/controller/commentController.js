@@ -1,3 +1,4 @@
+const Blog = require('../schema/blogModel');
 const Comment = require('../schema/commentModel');
 
 const getAllComment = async (req, res) => {
@@ -42,6 +43,15 @@ const createComment = async (req, res) => {
   try {
     console.log(req.body);
     const comment = await Comment.create(req.body);
+    await Blog.updateOne(
+      { _id: req.body.blogId },
+      {
+        $push: {
+          comments: comment._id,
+        },
+      }
+    );
+    console.log(comment);
 
     res.status(200).json({
       status: 'success',

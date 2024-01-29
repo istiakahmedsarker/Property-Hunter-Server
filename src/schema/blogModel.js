@@ -15,18 +15,22 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A blog must  have a description'],
   },
-  comment: {
-    type: String,
-  },
+
   createdAt: {
     type: Date,
     default: Date.now(),
-    select: false,
+    // select: false,
   },
   images: {
     type: [String],
     required: [true, 'A blog must  have a image'],
   },
+  comments: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'Comment',
+    },
+  ],
 });
 
 const Blog = mongoose.model('Blog', blogSchema);
