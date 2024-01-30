@@ -2,7 +2,40 @@ const Blog = require('../schema/blogModel');
 
 const getAllBlog = async (req, res) => {
   try {
-    const blogs = await Blog.find().select('-__v');
+    
+    console.log(req.query);
+    const queryObject = {};
+
+    if (req.query.title) {
+      queryObject.heading = { $regex: req.query.title, $options: 'i' };
+    }
+
+    let query = Blog.find(queryObject);
+
+    if (req.query.sort) {
+      const sortItem = req.query.sort.replace(',', ' ');
+      query = query.sort(sortItem);
+    }
+
+    if (req.query.select) {
+      const selectItem = req.query.select.replace(',', ' ');
+      query = query.select(selectItem);
+    }
+
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit || 3;
+    const skip = (page - 1) * limit;
+
+    // query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numBlog = await Blog.countDocuments();
+      if (skip >= numBlog) throw new Error('This page does not exist');
+    }
+
+    const blogs = await query;
+
+    // const blogs = await Blog.find(req.query).select('-__v');
 
     res.status(200).json({
       status: 'success',

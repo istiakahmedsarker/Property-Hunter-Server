@@ -4,7 +4,7 @@ const blogSchema = new mongoose.Schema({
   heading: {
     type: String,
     required: [true, 'A blog must  have a heading'],
-    unique: true,
+    // unique: true,
     trim: true,
   },
   shortDescription: {
