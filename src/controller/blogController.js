@@ -2,7 +2,6 @@ const Blog = require('../schema/blogModel');
 
 const getAllBlog = async (req, res) => {
   try {
-    
     console.log(req.query);
     const queryObject = {};
 
@@ -23,15 +22,11 @@ const getAllBlog = async (req, res) => {
     }
 
     const page = req.query.page * 1 || 1;
-    const limit = req.query.limit || 3;
+    const limit = req.query.limit * 1 || 3;
     const skip = (page - 1) * limit;
+    const totalBlogs = await Blog.countDocuments();
 
-    // query = query.skip(skip).limit(limit);
-
-    if (req.query.page) {
-      const numBlog = await Blog.countDocuments();
-      if (skip >= numBlog) throw new Error('This page does not exist');
-    }
+    query = query.skip(skip).limit(limit);
 
     const blogs = await query;
 
@@ -42,6 +37,9 @@ const getAllBlog = async (req, res) => {
       result: blogs.length,
       data: {
         blogs,
+        page,
+        limit,
+        totalBlogs,
       },
     });
   } catch (err) {
