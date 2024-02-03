@@ -1,0 +1,13 @@
+// buyer inquiry sample (ariful islam vai)
+[
+  {
+    "name": "string",
+    "email": "string",
+    "phone": "number",
+    "job_title": "string",
+    "annual_income": "number",
+    "savings": "number",
+    "home_preferences": ["apartment", "home", "villa"], //will be enum
+    "question": "string"
+  }
+]
