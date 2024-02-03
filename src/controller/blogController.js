@@ -2,13 +2,44 @@ const Blog = require('../schema/blogModel');
 
 const getAllBlog = async (req, res) => {
   try {
-    const blogs = await Blog.find();
+    console.log(req.query);
+    const queryObject = {};
+
+    if (req.query.title) {
+      queryObject.heading = { $regex: req.query.title, $options: 'i' };
+    }
+
+    let query = Blog.find(queryObject);
+
+    if (req.query.sort) {
+      const sortItem = req.query.sort.replace(',', ' ');
+      query = query.sort(sortItem);
+    }
+
+    if (req.query.select) {
+      const selectItem = req.query.select.replace(',', ' ');
+      query = query.select(selectItem);
+    }
+
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 3;
+    const skip = (page - 1) * limit;
+    const totalBlogs = await Blog.countDocuments();
+
+    query = query.skip(skip).limit(limit);
+
+    const blogs = await query;
+
+    // const blogs = await Blog.find(req.query).select('-__v');
 
     res.status(200).json({
       status: 'success',
       result: blogs.length,
       data: {
         blogs,
+        page,
+        limit,
+        totalBlogs,
       },
     });
   } catch (err) {
@@ -22,7 +53,10 @@ const getAllBlog = async (req, res) => {
 const getSingleBlog = async (req, res) => {
   const { id } = req.params;
   try {
-    const blog = await Blog.findById(id);
+    const blog = await Blog.findById(id).populate({
+      path: 'comments',
+      select: '-_id -__v -blogId',
+    });
 
     res.status(200).json({
       status: 'success',

@@ -1,15 +1,14 @@
-const Blog = require('../schema/blogModel');
-const Comment = require('../schema/commentModel');
+const User = require('../schema/userModel');
 
-const getAllComment = async (req, res) => {
+const getAllUser = async (req, res) => {
   try {
-    const comments = await Comment.find();
+    const users = await User.find();
 
     res.status(200).json({
       status: 'success',
-      result: comments.length,
+      result: users.length,
       data: {
-        comments,
+        users,
       },
     });
   } catch (err) {
@@ -20,15 +19,15 @@ const getAllComment = async (req, res) => {
   }
 };
 
-const getSingleComment = async (req, res) => {
+const getSingleUser = async (req, res) => {
   const { id } = req.params;
   try {
-    const comment = await Comment.findById(id);
+    const user = await User.findById(id);
 
     res.status(200).json({
       status: 'success',
       data: {
-        comment,
+        user,
       },
     });
   } catch (err) {
@@ -39,24 +38,15 @@ const getSingleComment = async (req, res) => {
   }
 };
 
-const createComment = async (req, res) => {
+const createUser = async (req, res) => {
   try {
     console.log(req.body);
-    const comment = await Comment.create(req.body);
-    await Blog.updateOne(
-      { _id: req.body.blogId },
-      {
-        $push: {
-          comments: comment._id,
-        },
-      }
-    );
-    console.log(comment);
+    const user = await User.create(req.body);
 
     res.status(200).json({
       status: 'success',
       data: {
-        comment,
+        user,
       },
     });
   } catch (err) {
@@ -67,10 +57,10 @@ const createComment = async (req, res) => {
   }
 };
 
-const deleteComment = async (req, res) => {
+const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
-    await Comment.findByIdAndDelete(id);
+    await User.findByIdAndDelete(id);
     res.status(204).json({
       status: 'success',
       data: null,
@@ -84,8 +74,8 @@ const deleteComment = async (req, res) => {
 };
 
 module.exports = {
-  getAllComment,
-  createComment,
-  deleteComment,
-  getSingleComment,
+  getAllUser,
+  createUser,
+  deleteUser,
+  getSingleUser,
 };

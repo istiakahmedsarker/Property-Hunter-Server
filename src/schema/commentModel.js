@@ -5,9 +5,13 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A comment must have a author name'],
   },
-  commentText: {
+  commentMsg: {
     type: String,
-    // required: [true, 'A comment must have  comment text'],
+    required: [true, 'A comment must have  comment message'],
+  },
+  authorImg: {
+    type: String,
+    required: [true, 'A comment must have author image'],
   },
   likesCount: {
     type: Number,
@@ -17,7 +21,14 @@ const commentSchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
-    required: [true],
+    required: [true, 'A comment must have  comment text'],
+  },
+  createdDate: {
+    type: Date,
+    default: Date.now(),
+  },
+  blogId: {
+    type: String,
   },
 });
 
