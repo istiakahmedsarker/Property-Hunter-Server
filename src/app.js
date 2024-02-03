@@ -10,6 +10,7 @@ const propertyRouter = require("./routes/propertyRoutes");
 const commentRouter = require("./routes/commentRoutes");
 const apartmentRouter = require("./routes/apartmentRoutes");
 const paymentRouter = require("./routes/paymentRoutes");
+const buyerInquiry = require("./routes/buyerInqueryRouters");
 
 // initial server start
 app.get("/", (req, res) => {
@@ -24,6 +25,7 @@ app.use("/api/v1/properties", propertyRouter);
 app.use("/api/v1/comments", commentRouter);
 app.use("/api/v1/apartments", apartmentRouter);
 app.use("/api/v1/payments", paymentRouter);
+app.use("/api/v1/buyer-inquiries", buyerInquiry);
 
 // handle error for unknown routes
 app.all("*", (req, res, next) => {
