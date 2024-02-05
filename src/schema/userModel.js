@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
+    default: "user",
   },
   email: {
     type: String,
