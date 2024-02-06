@@ -44,7 +44,7 @@ app.all("*", (req, res, next) => {
     message: `Can't find ${req.originalUrl} on this server`,
   });
 
-  next(err);
+  next();
 });
 
 module.exports = app;

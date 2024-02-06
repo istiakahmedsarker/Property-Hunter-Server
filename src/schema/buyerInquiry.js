@@ -32,7 +32,10 @@ const buyerInquirySchema = mongoose.Schema({
   },
   question: {
     type: String,
-    required: [true, "Question is required"],
+  },
+  status: {
+    type: String,
+    default: "pending",
   },
 });
 
