@@ -1,0 +1,25 @@
+// buyer inquiry sample (ariful islam vai)
+[
+  {
+    "name": "string",
+    "email": "string",
+    "phone": "number",
+    "job_title": "string",
+    "annual_income": "number",
+    "savings": "number",
+    "home_preferences": ["apartment", "home", "villa"], //will be enum
+    "question": "string"
+  },
+
+  // user payment info sample (Sabbir vai)
+  {
+    "email": "user.email",
+    "name": "user.displayName",
+    "country": "selectedCountry",
+    "price": "properties.price",
+    "serviceCharge": "serviceChargeAmount",
+    "transactionId": "paymentIntent.id",
+    "date": "new Date()",
+    "status": "pending"
+  }
+]
