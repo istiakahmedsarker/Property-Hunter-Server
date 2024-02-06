@@ -23,11 +23,13 @@ const getAllBlog = async (req, res) => {
 
     const page = req.query.page * 1 || 1;
     const limit = req.query.limit * 1 || 3;
-    const skip = (page - 1) * limit;
+
+    if (req.query.page || req.query.limit) {
+      const skip = (page - 1) * limit;
+      query = query.skip(skip).limit(limit);
+    }
+
     const totalBlogs = await Blog.countDocuments();
-
-    query = query.skip(skip).limit(limit);
-
     const blogs = await query;
 
     // const blogs = await Blog.find(req.query).select('-__v');
@@ -55,7 +57,7 @@ const getSingleBlog = async (req, res) => {
   try {
     const blog = await Blog.findById(id).populate({
       path: 'comments',
-      select: '-_id -__v -blogId',
+      select: '-__v',
     });
 
     res.status(200).json({

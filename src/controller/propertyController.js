@@ -30,12 +30,15 @@ const getAllProperty = async (req, res) => {
     }
 
     const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 6;
-    const skip = (page - 1) * limit;
+    const limit = req.query.limit * 1 || 10;
+
+    if (req.query.limit || req.query.page) {
+      const skip = (page - 1) * limit;
+
+      query = query.skip(skip).limit(limit);
+    }
+
     const totalProperty = await Property.countDocuments();
-
-    query = query.skip(skip).limit(limit);
-
     const properties = await query;
 
     // const properties = await Property.find();
