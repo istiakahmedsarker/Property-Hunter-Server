@@ -16,6 +16,7 @@ const userRouter = require("./routes/userRoutes");
 // const apartmentRouter = require("./routes/apartmentRoutes");
 const paymentRouter = require("./routes/paymentRoutes");
 const buyerInquiry = require("./routes/buyerInqueryRouters");
+const propertyFavorite = require("./routes/propertyFavoriteRouters");
 
 // initial server start
 app.get("/", (req, res) => {
@@ -36,6 +37,7 @@ app.use("/api/v1/users", userRouter);
 // app.use("/api/v1/apartments", apartmentRouter);
 app.use("/api/v1/payments", paymentRouter);
 app.use("/api/v1/buyer-inquiries", buyerInquiry);
+app.use("/api/v1/property-favorite", propertyFavorite);
 
 // handle error for unknown routes
 app.all("*", (req, res, next) => {
