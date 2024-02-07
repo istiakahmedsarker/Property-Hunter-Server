@@ -21,8 +21,30 @@ const getAllUser = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
   const { id } = req.params;
+  // console.log(req.params);
   try {
     const user = await User.findById(id);
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        user,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'Fail',
+      message: err,
+    });
+  }
+};
+
+const getSingleUserWithEmail = async (req, res) => {
+  const { email } = req.params;
+
+  console.log(req.params);
+  try {
+    const user = await User.findOne({ email });
 
     res.status(200).json({
       status: 'success',
@@ -61,9 +83,28 @@ const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
     await User.findByIdAndDelete(id);
+
     res.status(204).json({
       status: 'success',
       data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'Fail',
+      message: err,
+    });
+  }
+};
+
+const makeAdmin = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const filter = { _id: id };
+    const update = { role: 'admin' };
+    let doc = await User.findOneAndUpdate(filter, update, { new: true });
+    res.status(200).json({
+      status: 'success',
+      data: doc,
     });
   } catch (err) {
     res.status(400).json({
@@ -78,4 +119,6 @@ module.exports = {
   createUser,
   deleteUser,
   getSingleUser,
+  makeAdmin,
+  getSingleUserWithEmail,
 };

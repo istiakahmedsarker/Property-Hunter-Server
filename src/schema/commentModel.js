@@ -13,6 +13,12 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A comment must have author image'],
   },
+  likesCount: {
+    type: Number,
+  },
+  dislikesCount: {
+    type: Number,
+  },
   rating: {
     type: Number,
     required: [true, 'A comment must have  comment text'],
