@@ -2,15 +2,26 @@ const Payment = require("../schema/paymentModel");
 
 const getAllPayment = async (req, res) => {
   try {
-    const payments = await Payment.find();
-
-    res.status(200).json({
-      status: "success",
-      result: payments.length,
-      data: {
-        payments,
-      },
-    });
+    let payments;
+    if (req.query.useremail) {
+      payments = await Payment.find({ customer_email: req.query.useremail });
+      res.status(200).json({
+        status: "success",
+        result: payments.length,
+        data: {
+          payments,
+        },
+      });
+    } else {
+      payments = await Payment.find();
+      res.status(200).json({
+        status: "success",
+        result: payments.length,
+        data: {
+          payments,
+        },
+      });
+    }
   } catch (err) {
     res.status(400).json({
       status: "Fail",
@@ -18,25 +29,6 @@ const getAllPayment = async (req, res) => {
     });
   }
 };
-
-// const getSingleComment = async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     const comment = await Comment.findById(id);
-
-//     res.status(200).json({
-//       status: "success",
-//       data: {
-//         comment,
-//       },
-//     });
-//   } catch (err) {
-//     res.status(400).json({
-//       status: "Fail",
-//       message: err,
-//     });
-//   }
-// };
 
 const createPayment = async (req, res) => {
   try {
@@ -56,25 +48,24 @@ const createPayment = async (req, res) => {
   }
 };
 
-// const deleteComment = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     await Comment.findByIdAndDelete(id);
-//     res.status(204).json({
-//       status: "success",
-//       data: null,
-//     });
-//   } catch (err) {
-//     res.status(400).json({
-//       status: "Fail",
-//       message: err,
-//     });
-//   }
-// };
+const deletePayment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Payment.findByIdAndDelete(id);
+    res.status(200).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
 
 module.exports = {
   getAllPayment,
   createPayment,
-  //   deleteComment,
-  //   getSingleComment,
+  deletePayment,
 };
