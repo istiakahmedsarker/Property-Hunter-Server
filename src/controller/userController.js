@@ -74,12 +74,14 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const makeAdmin = async (req, res) => {
+const makeModerator = async (req, res) => {
   try {
     const id = req.params.id;
     const filter = { _id: id };
-    const update = { role: "admin" };
-    let doc = await User.findOneAndUpdate(filter, update);
+    const update = { role: "moderator" };
+    let doc = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
     res.status(200).json({
       status: "success",
       data: doc,
@@ -92,10 +94,51 @@ const makeAdmin = async (req, res) => {
   }
 };
 
+const makeMember = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const filter = { _id: id };
+    const update = { role: "member" };
+    let doc = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+    res.status(200).json({
+      status: "success",
+      data: doc,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
+
+const makeUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const filter = { _id: id };
+    const update = { role: "user" };
+    let doc = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+    res.status(200).json({
+      status: "success",
+      data: doc,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
 module.exports = {
   getAllUser,
   createUser,
   deleteUser,
   getSingleUser,
-  makeAdmin,
+  makeModerator,
+  makeMember,
+  makeUser,
 };
