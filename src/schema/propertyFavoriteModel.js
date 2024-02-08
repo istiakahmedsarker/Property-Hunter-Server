@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const propertyFavoriteSchema = new mongoose.Schema({
   user_email: {
     type: String,
-    require: [true, "User email is required"],
+    required: [true, "User email is required"],
   },
   property_id: {
     type: String,
-    require: [true, "Property ID is required"],
+    required: [true, "Property ID is required"],
   },
 });
 
