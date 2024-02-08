@@ -3,15 +3,15 @@ const ProperFavorite = require("../schema/propertyFavoriteModel");
 const getAllFavorite = async (req, res) => {
   try {
     let favorites;
-    if (req.query.propertyid) {
+    if (req.query.usermail) {
       favorites = await ProperFavorite.find({
-        property_id: req.query.propertyid,
+        user_email: req.query.usermail,
       });
       res.status(200).json({
         status: "success",
-        favorites: favorites.length,
+        data: favorites,
+        favorites_count: favorites.length,
       });
-    } else if (req.query.use) {
     } else {
       favorites = await ProperFavorite.find();
       res.status(200).json({
@@ -58,8 +58,25 @@ const getFavoriteById = async (req, res) => {
     });
   } catch (err) {}
 };
+
+const deleteFavorite = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await ProperFavorite.findByIdAndDelete(id);
+    res.status(200).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
 module.exports = {
   getAllFavorite,
   createPropertyFavorite,
   getFavoriteById,
+  deleteFavorite,
 };
