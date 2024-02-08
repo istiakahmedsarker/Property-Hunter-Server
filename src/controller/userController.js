@@ -1,11 +1,11 @@
-const User = require('../schema/userModel');
+const User = require("../schema/userModel");
 
 const getAllUser = async (req, res) => {
   try {
     const users = await User.find();
 
     res.status(200).json({
-      status: 'success',
+      status: "success",
       result: users.length,
       data: {
         users,
@@ -13,7 +13,7 @@ const getAllUser = async (req, res) => {
     });
   } catch (err) {
     res.status(400).json({
-      status: 'Fail',
+      status: "Fail",
       message: err,
     });
   }
@@ -26,14 +26,14 @@ const getSingleUser = async (req, res) => {
     const user = await User.findById(id);
 
     res.status(200).json({
-      status: 'success',
+      status: "success",
       data: {
         user,
       },
     });
   } catch (err) {
     res.status(400).json({
-      status: 'Fail',
+      status: "Fail",
       message: err,
     });
   }
@@ -47,14 +47,14 @@ const getSingleUserWithEmail = async (req, res) => {
     const user = await User.findOne({ email });
 
     res.status(200).json({
-      status: 'success',
+      status: "success",
       data: {
         user,
       },
     });
   } catch (err) {
     res.status(400).json({
-      status: 'Fail',
+      status: "Fail",
       message: err,
     });
   }
@@ -66,14 +66,14 @@ const createUser = async (req, res) => {
     const user = await User.create(req.body);
 
     res.status(200).json({
-      status: 'success',
+      status: "success",
       data: {
         user,
       },
     });
   } catch (err) {
     res.status(400).json({
-      status: 'Fail',
+      status: "Fail",
       message: err,
     });
   }
@@ -85,12 +85,12 @@ const deleteUser = async (req, res) => {
     await User.findByIdAndDelete(id);
 
     res.status(204).json({
-      status: 'success',
+      status: "success",
       data: null,
     });
   } catch (err) {
     res.status(400).json({
-      status: 'Fail',
+      status: "Fail",
       message: err,
     });
   }
@@ -103,10 +103,10 @@ const makeModerator = async (req, res) => {
     const update = { role: "moderator" };
     let doc = await User.findOneAndUpdate(filter, update, {
       new: true,
-    })
+    });
   } catch (err) {
     res.status(400).json({
-      status: 'Fail',
+      status: "Fail",
       message: err,
     });
   }
@@ -159,6 +159,5 @@ module.exports = {
   makeModerator,
   makeMember,
   makeUser,
-  makeAdmin,
   getSingleUserWithEmail,
 };
