@@ -1,43 +1,43 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const buyerInquirySchema = mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Name is required"],
+    required: [true, 'Name is required'],
   },
   email: {
     type: String,
-    required: [true, "Email is required"],
+    required: [true, 'Email is required'],
   },
   phone: {
     type: Number,
-    required: [true, "Phone number is required"],
+    required: [true, 'Phone number is required'],
   },
   job_title: {
     type: String,
-    required: [true, "Job title is required"],
+    required: [true, 'Job title is required'],
   },
   annual_income: {
     type: Number,
-    required: [true, "Income is required"],
+    required: [true, 'Income is required'],
   },
   savings: {
     type: Number,
-    required: [true, "Savings is required"],
+    required: [true, 'Savings is required'],
   },
   home_preferences: {
     type: String,
-    required: [true, "Home Preference is required"],
-    enum: ["apartment", "home", "villa"],
+    required: [true, 'Home Preference is required'],
+    enum: ['apartment', 'home', 'villa', 'office'],
   },
   question: {
     type: String,
   },
   status: {
     type: String,
-    default: "pending",
+    default: 'pending',
   },
 });
 
-const BuyerInquiry = mongoose.model("BuyerInquiry", buyerInquirySchema);
+const BuyerInquiry = mongoose.model('BuyerInquiry', buyerInquirySchema);
 module.exports = BuyerInquiry;
