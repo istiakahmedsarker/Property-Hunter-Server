@@ -17,6 +17,7 @@ const userRouter = require('./routes/userRoutes');
 const paymentRouter = require("./routes/paymentRoutes");
 const buyerInquiry = require("./routes/buyerInqueryRouters");
 const propertyFavorite = require("./routes/propertyFavoriteRouters");
+const likeDislikeRoutes = require('./routes/likeDislikeCountsRoutes');
 
 // initial server start
 app.get('/', (req, res) => {
@@ -38,6 +39,7 @@ app.use('/api/v1/users', userRouter);
 app.use("/api/v1/payments", paymentRouter);
 app.use("/api/v1/buyer-inquiries", buyerInquiry);
 app.use("/api/v1/property-favorite", propertyFavorite);
+app.use('/api/v1/like-dislike', likeDislikeRoutes);
 
 // handle error for unknown routes
 app.all('*', (req, res, next) => {
