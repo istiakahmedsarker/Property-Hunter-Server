@@ -25,6 +25,11 @@ const getSingleComment = async (req, res) => {
   try {
     const comment = await Comment.findById(id);
 
+    // .populate({
+    //   path: 'user',
+    //   select: 'name email',
+    // });
+
     res.status(200).json({
       status: 'success',
       data: {
@@ -43,7 +48,8 @@ const createComment = async (req, res) => {
   try {
     console.log(req.body);
     const comment = await Comment.create(req.body);
-    await Blog.updateOne(
+    console.log(comment);
+    const up = await Blog.updateOne(
       { _id: req.body.blogId },
       {
         $push: {
@@ -51,12 +57,66 @@ const createComment = async (req, res) => {
         },
       }
     );
-    console.log(comment);
+
+    console.log(up);
 
     res.status(200).json({
       status: 'success',
       data: {
         comment,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'Fail',
+      message: err,
+    });
+  }
+};
+
+const updateComment = async (req, res) => {
+  const { id } = req.params;
+  const { likeEmail, disLikeEmail } = req.body;
+
+  try {
+    const comment = await Comment.findById(id);
+    const likesCount = comment.likesCount || [];
+    const dislikesCount = comment.dislikesCount || [];
+    const isLiked = likesCount.includes(likeEmail);
+    const isDisliked = dislikesCount.includes(disLikeEmail);
+
+    let updateFields = {};
+
+    if (likeEmail) {
+      if (isLiked) {
+        updateFields = { $pull: { likesCount: likeEmail } };
+      } else {
+        updateFields = {
+          $push: { likesCount: likeEmail },
+          $pull: { dislikesCount: likeEmail },
+        };
+      }
+    }
+
+    if (disLikeEmail) {
+      if (isDisliked) {
+        updateFields = { $pull: { dislikesCount: disLikeEmail } };
+      } else {
+        updateFields = {
+          $push: { dislikesCount: disLikeEmail },
+          $pull: { likesCount: disLikeEmail },
+        };
+      }
+    }
+
+    const updateComment = await Comment.findByIdAndUpdate(id, updateFields, {
+      new: true,
+    });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        updateComment,
       },
     });
   } catch (err) {
@@ -86,6 +146,7 @@ const deleteComment = async (req, res) => {
 module.exports = {
   getAllComment,
   createComment,
+  updateComment,
   deleteComment,
   getSingleComment,
 };

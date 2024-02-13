@@ -38,7 +38,7 @@ const getAllProperty = async (req, res) => {
       query = query.skip(skip).limit(limit);
     }
 
-    const totalProperty = await Property.countDocuments();
+    const totalProperty = await Property.countDocuments(queryObject);
     const properties = await query;
 
     // const properties = await Property.find();
