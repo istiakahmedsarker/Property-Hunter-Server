@@ -37,6 +37,26 @@ const buyerInquirySchema = mongoose.Schema({
     type: String,
     default: "pending",
   },
+  user_email: {
+    type: String,
+    required: [true, "User Email is required"],
+  },
+  buyer_property_images: {
+    type: String,
+    required: [true, "Property image is required"],
+  },
+  buyer_property_title: {
+    type: String,
+    required: [true, "Property title is required"],
+  },
+  buyer_property_price: {
+    type: Number,
+    required: [true, "Property price is required"],
+  },
+  buyer_property_squareFootage: {
+    type: Number,
+    required: [true, "Property square footage is required"],
+  },
 });
 
 const BuyerInquiry = mongoose.model("BuyerInquiry", buyerInquirySchema);

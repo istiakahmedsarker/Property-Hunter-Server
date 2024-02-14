@@ -2,14 +2,27 @@ const BuyerInquiry = require("../schema/buyerInquiry");
 
 const getAllInquiry = async (req, res) => {
   try {
-    const inquiries = await BuyerInquiry.find();
-    res.status(200).json({
-      status: "success",
-      result: inquiries.length,
-      data: {
-        inquiries,
-      },
-    });
+    const user_email = req.query.useremail;
+    let inquiries;
+    if (user_email) {
+      inquiries = await BuyerInquiry.find({ user_email: user_email });
+      res.status(200).json({
+        status: "success",
+        result: inquiries.length,
+        data: {
+          inquiries,
+        },
+      });
+    } else {
+      inquiries = await BuyerInquiry.find();
+      res.status(200).json({
+        status: "success",
+        result: inquiries.length,
+        data: {
+          inquiries,
+        },
+      });
+    }
   } catch (err) {
     res.status(400).json({
       status: "Fail",
