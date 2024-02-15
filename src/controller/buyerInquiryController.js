@@ -81,9 +81,46 @@ const statusReject = async (req, res) => {
     });
   }
 };
+
+const getInquiryById = async (req, res) => {
+  try {
+    const id = req.params.inquiryid;
+    const filter = { _id: id };
+    const data = await BuyerInquiry.findOneAndUpdate({ filter });
+    res.status(200).json({
+      status: "success",
+      data: {
+        data,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
+
+const deleteInquiry = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await BuyerInquiry.findByIdAndDelete(id);
+    res.status(200).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
 module.exports = {
   getAllInquiry,
   createInquiry,
   statusAccept,
   statusReject,
+  deleteInquiry,
+  getInquiryById,
 };
