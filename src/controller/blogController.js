@@ -57,7 +57,7 @@ const getSingleBlog = async (req, res) => {
   try {
     const blog = await Blog.findById(id).populate({
       path: 'comments',
-      select: '-__v',
+      select: '-__v -createdDate',
     });
 
     res.status(200).json({
