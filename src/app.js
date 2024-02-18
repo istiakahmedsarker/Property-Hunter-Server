@@ -17,6 +17,7 @@ const propertyFavorite = require("./routes/propertyFavoriteRouters");
 const likeDislikeRoutes = require("./routes/likeDislikeCountsRoutes");
 const announcementRouters = require("./routes/annoucementRouters");
 const getFeaturedPropertiesRoutes = require('./routes/getFeaturedPropertiesRoutes');
+const getAnnouncementRoutes = require('./routes/getAnnouncementRoutes');
 
 // initial server start
 app.get("/", (req, res) => {
@@ -37,6 +38,7 @@ app.use("/api/v1/property-favorite", propertyFavorite);
 app.use("/api/v1/like-dislike", likeDislikeRoutes);
 app.use("/api/v1/announcement", announcementRouters);
 app.use("/api/v1/getFeaturedProperties", getFeaturedPropertiesRoutes);
+app.use("/api/v1/getAnnouncement", getAnnouncementRoutes);
 
 // payment stripe
 
