@@ -18,6 +18,8 @@ const likeDislikeRoutes = require("./routes/likeDislikeCountsRoutes");
 const announcementRouters = require("./routes/annoucementRouters");
 const getFeaturedPropertiesRoutes = require('./routes/getFeaturedPropertiesRoutes');
 const getAnnouncementRoutes = require('./routes/getAnnouncementRoutes');
+const paymentByEmailRouter = require('./routes/paymentRoutes'); 
+
 
 // initial server start
 app.get("/", (req, res) => {
@@ -39,6 +41,7 @@ app.use("/api/v1/like-dislike", likeDislikeRoutes);
 app.use("/api/v1/announcement", announcementRouters);
 app.use("/api/v1/getFeaturedProperties", getFeaturedPropertiesRoutes);
 app.use("/api/v1/getAnnouncement", getAnnouncementRoutes);
+app.use("/api/v1/get-payment-by-email", paymentByEmailRouter);
 
 // payment stripe
 
