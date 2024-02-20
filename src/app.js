@@ -16,8 +16,9 @@ const buyerInquiry = require("./routes/buyerInqueryRouters");
 const propertyFavorite = require("./routes/propertyFavoriteRouters");
 const likeDislikeRoutes = require("./routes/likeDislikeCountsRoutes");
 const announcementRouters = require("./routes/annoucementRouters");
-const getFeaturedPropertiesRoutes = require('./routes/getFeaturedPropertiesRoutes');
-const getAnnouncementRoutes = require('./routes/getAnnouncementRoutes');
+const getFeaturedPropertiesRoutes = require("./routes/getFeaturedPropertiesRoutes");
+const getAnnouncementRoutes = require("./routes/getAnnouncementRoutes");
+const subscriberRouters = require("./routes/subscribersRoutes");
 
 // initial server start
 app.get("/", (req, res) => {
@@ -39,6 +40,7 @@ app.use("/api/v1/like-dislike", likeDislikeRoutes);
 app.use("/api/v1/announcement", announcementRouters);
 app.use("/api/v1/getFeaturedProperties", getFeaturedPropertiesRoutes);
 app.use("/api/v1/getAnnouncement", getAnnouncementRoutes);
+app.use("/api/v1/subscriber", subscriberRouters);
 
 // payment stripe
 
