@@ -13,6 +13,10 @@ const subscribersSchema = new mongoose.Schema({
     type: String,
     required: [true, "Subscriber time is required"],
   },
+  time_stamp: {
+    type: String,
+    required: [true, "Time stamp is required"],
+  },
 });
 
 const Subscriber = mongoose.model("subscriber", subscribersSchema);
