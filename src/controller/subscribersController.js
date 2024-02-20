@@ -50,7 +50,23 @@ const getAllSubscriber = async (req, res) => {
     });
   }
 };
+
+const deleteSubscriber = async (req, res) => {
+  try {
+    await Subscribers.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
 module.exports = {
   createSubscriber,
   getAllSubscriber,
+  deleteSubscriber,
 };
