@@ -1,58 +1,58 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const propertySchema = new mongoose.Schema({
   propertyTitle: {
     type: String,
-    required: [true, 'Property title is required'],
+    required: [true, "Property title is required"],
   },
   propertyType: {
     type: String,
-    required: [true, 'Property type is required'],
+    required: [true, "Property type is required"],
   },
   location: {
     address: {
       type: String,
-      required: [true, 'Location address is required'],
+      required: [true, "Location address is required"],
     },
     city: {
       type: String,
-      required: [true, 'City is required'],
+      required: [true, "City is required"],
     },
     state: {
       type: String,
-      required: [true, 'State is required'],
+      required: [true, "State is required"],
     },
     zipCode: {
       type: String,
-      required: [true, 'Zip code is required'],
+      required: [true, "Zip code is required"],
     },
     latitude: {
       type: Number,
-      required: [true, 'Latitude is required'],
+      required: [true, "Latitude is required"],
     },
     longitude: {
       type: Number,
-      required: [true, 'Longitude is required'],
+      required: [true, "Longitude is required"],
     },
   },
   price: {
     type: Number,
-    required: [true, 'Price is required'],
+    required: [true, "Price is required"],
   },
   squareFootage: {
     type: Number,
-    required: [true, 'Square footage is required'],
+    required: [true, "Square footage is required"],
   },
   easement: {
     type: [String],
   },
   description: {
     type: String,
-    required: [true, 'Description is required'],
+    required: [true, "Description is required"],
   },
   propertyImages: {
     type: [String],
-    required: [true, 'Property images are required'],
+    required: [true, "Property images are required"],
   },
   utilities: {
     type: [String],
@@ -90,31 +90,34 @@ const propertySchema = new mongoose.Schema({
   },
   yearBuilt: {
     type: Number,
-    required: [true, 'Year built is required'],
+    required: [true, "Year built is required"],
   },
   propertyStatus: {
     type: String,
-    required: [true, 'Property status is required'],
+    required: [true, "Property status is required"],
   },
   ownerInformation: {
     name: {
       type: String,
-      required: [true, 'Owner name is required'],
+      required: [true, "Owner name is required"],
     },
     email: {
       type: String,
       required: true,
       validate: {
         validator: (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
-        message: 'Invalid email format',
+        message: "Invalid email format",
       },
     },
     phone: {
       type: String,
     },
   },
+  favorites: {
+    type: [],
+  },
 });
 
-const Property = mongoose.model('Property', propertySchema);
+const Property = mongoose.model("Property", propertySchema);
 
 module.exports = Property;
