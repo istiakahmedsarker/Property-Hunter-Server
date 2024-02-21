@@ -19,7 +19,7 @@ const announcementRouters = require("./routes/annoucementRouters");
 const getFeaturedPropertiesRoutes = require("./routes/getFeaturedPropertiesRoutes");
 const getAnnouncementRoutes = require("./routes/getAnnouncementRoutes");
 const subscriberRouters = require("./routes/subscribersRoutes");
-
+const sendEmailRouter = require("./routes/sendEmailRouters");
 // initial server start
 app.get("/", (req, res) => {
   res
@@ -41,6 +41,7 @@ app.use("/api/v1/announcement", announcementRouters);
 app.use("/api/v1/getFeaturedProperties", getFeaturedPropertiesRoutes);
 app.use("/api/v1/getAnnouncement", getAnnouncementRoutes);
 app.use("/api/v1/subscriber", subscriberRouters);
+app.use("/api/v1/send-emails", sendEmailRouter);
 
 // payment stripe
 
