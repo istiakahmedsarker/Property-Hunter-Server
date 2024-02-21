@@ -1,1 +1,2 @@
 npm i dotenv
+npm install nodemailer

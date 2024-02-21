@@ -29,25 +29,13 @@ const getAllFavorite = async (req, res) => {
 
 const createPropertyFavorite = async (req, res) => {
   try {
-    const propertyId = req.body.property_id;
-    const userEmail = req.body.user_email;
-    const isExist = await ProperFavorite.findOne({
-      property_id: propertyId,
-      user_email: userEmail,
+    const newFavorite = await ProperFavorite.create(req.body);
+    res.status(200).json({
+      status: "success",
+      data: {
+        newFavorite,
+      },
     });
-    if (!isExist) {
-      const newFavorite = await ProperFavorite.create(req.body);
-      res.status(200).json({
-        status: "success",
-        data: {
-          newFavorite,
-        },
-      });
-    } else {
-      res.status(404).json({
-        status: "exist",
-      });
-    }
   } catch (err) {
     res.status(400).json({
       status: "Fail",
