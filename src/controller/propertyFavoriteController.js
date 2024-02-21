@@ -130,6 +130,53 @@ const createPropertyFavoriteUserList = async (req, res) => {
 };
 
 // remove user from favorite list
+const removeUserFromFavorites = (property, userEmail) => {
+  property.favorites = property.favorites.filter(
+    (favorite) => favorite.user_email !== userEmail
+  );
+};
+
+const removePropertyFavoriteUserList = async (req, res) => {
+  try {
+    const propertyId = req.body.property_id;
+    const userEmail = req.body.user_email;
+
+    // Find the property by propertyId
+    const property = await Property.findById(propertyId);
+
+    if (!property) {
+      // Property not found
+      return res.status(404).json({
+        status: "fail",
+        message: "Property not found",
+      });
+    }
+
+    // Check if the property already has a favorites array
+    if (!property.favorites || property.favorites.length === 0) {
+      // If not, no need to remove
+      return res.status(200).json({
+        status: "success",
+        message: "No favorites to remove",
+      });
+    }
+
+    // Remove the user from the favorites array
+    removeUserFromFavorites(property, userEmail);
+
+    await property.save();
+
+    res.status(200).json({
+      status: "success",
+      message: "User removed from favorites",
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err.message,
+    });
+  }
+};
 
 module.exports = {
   getAllFavorite,
@@ -137,4 +184,5 @@ module.exports = {
   getFavoriteById,
   deleteFavorite,
   createPropertyFavoriteUserList,
+  removePropertyFavoriteUserList,
 };
