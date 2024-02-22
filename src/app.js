@@ -42,14 +42,6 @@ app.use("/api/v1/getFeaturedProperties", getFeaturedPropertiesRoutes);
 app.use("/api/v1/getAnnouncement", getAnnouncementRoutes);
 app.use("/api/v1/subscriber", subscriberRouters);
 app.use("/api/v1/send-emails", sendEmailRouter);
-app.use('/api/v1/blogs', blogRouter);
-app.use('/api/v1/properties', propertyRouter);
-app.use('/api/v1/comments', commentRouter);
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1/payments', paymentRouter);
-app.use('/api/v1/buyer-inquiries', buyerInquiry);
-app.use('/api/v1/property-favorite', propertyFavorite);
-app.use('/api/v1/like-dislike', likeDislikeRoutes);
 
 // payment stripe
 
