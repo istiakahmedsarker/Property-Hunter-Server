@@ -22,14 +22,14 @@ const getAllBlog = async (req, res) => {
     }
 
     const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 3;
+    const limit = req.query.limit * 1 || 4;
 
     if (req.query.page || req.query.limit) {
       const skip = (page - 1) * limit;
       query = query.skip(skip).limit(limit);
     }
 
-    const totalBlogs = await Blog.countDocuments();
+    const totalBlogs = await Blog.countDocuments(queryObject);
     const blogs = await query;
 
     // const blogs = await Blog.find(req.query).select('-__v');
