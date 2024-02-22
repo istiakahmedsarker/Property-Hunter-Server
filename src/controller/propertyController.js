@@ -5,30 +5,36 @@ const getAllProperty = async (req, res) => {
     console.log(req.query);
     const queryObject = {};
 
+    //search by title
     if (req.query.title) {
       queryObject.propertyTitle = { $regex: req.query.title, $options: 'i' };
     }
 
+    // filter by status
     if (req.query.propertyStatus) {
       queryObject.propertyStatus = req.query.propertyStatus;
     }
 
+    //filter by property type
     if (req.query.propertyType) {
       queryObject.propertyType = req.query.propertyType;
     }
 
     let query = Property.find(queryObject);
 
+    //sorting
     if (req.query.sort) {
       const sortItem = req.query.sort.replace(',', ' ');
       query = query.sort(sortItem);
     }
 
+    //limited field
     if (req.query.select) {
       const selectItem = req.query.select.replace(',', ' ');
       query = query.select(selectItem);
     }
 
+    //pagination
     const page = req.query.page * 1 || 1;
     const limit = req.query.limit * 1 || 10;
 
@@ -39,6 +45,7 @@ const getAllProperty = async (req, res) => {
     }
 
     const totalProperty = await Property.countDocuments(queryObject);
+
     const properties = await query;
 
     // const properties = await Property.find();
