@@ -8,10 +8,7 @@ const blogSchema = new mongoose.Schema(
       // unique: true,
       trim: true,
     },
-    shortDescription: {
-      type: String,
-      required: [true, 'A blog must  have a short description'],
-    },
+
     description: {
       type: String,
       required: [true, 'A blog must  have a description'],
