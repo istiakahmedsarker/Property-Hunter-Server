@@ -151,6 +151,18 @@ const makeUser = async (req, res) => {
     });
   }
 };
+
+const getAgents = async (req, res) => {
+  try {
+    // Find 3 users with the 'moderator' role
+    const agents = await User.find({ role: 'moderator' }).limit(3);
+    res.json(agents);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 module.exports = {
   getAllUser,
   createUser,
@@ -160,4 +172,5 @@ module.exports = {
   makeMember,
   makeUser,
   getSingleUserWithEmail,
+  getAgents
 };
