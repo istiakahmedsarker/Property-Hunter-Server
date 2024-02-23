@@ -8,13 +8,13 @@ const {
   makeMember,
   makeUser,
   getSingleUserWithEmail,
-  getAgents
+  getAgents,
 } = require("../controller/userController");
 
 const router = express.Router();
 
 router.route("/").get(getAllUser).post(createUser);
-router.route('/getAgents').get(getAgents);
+router.route("/get-agents").get(getAgents);
 router.route("/:id").get(getSingleUser).delete(deleteUser);
 router.route("/make-moderator/:id").put(makeModerator);
 router.route("/make-member/:id").put(makeMember);
