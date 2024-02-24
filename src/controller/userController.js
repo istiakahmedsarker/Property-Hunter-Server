@@ -151,7 +151,27 @@ const makeUser = async (req, res) => {
     });
   }
 };
+// update user
+const updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = req.body;
+    const updatedUser = await User.findByIdAndUpdate(userId, user, {
+      new: true,
+    });
 
+    res.status(200).json({
+      status: "success",
+      data: updatedUser,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      status: "fail",
+      message: "Failed to update property status",
+    });
+  }
+};
 const getAgents = async (req, res) => {
   try {
     // Find 3 users with the 'moderator' role
@@ -178,4 +198,5 @@ module.exports = {
   makeUser,
   getSingleUserWithEmail,
   getAgents,
+  updateUser,
 };
