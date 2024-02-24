@@ -24,6 +24,10 @@ const commentSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
+    authorEmail: {
+      type: String,
+      required: [true],
+    },
     // user: {
     //   type: mongoose.Types.ObjectId,
     //   ref: 'User',

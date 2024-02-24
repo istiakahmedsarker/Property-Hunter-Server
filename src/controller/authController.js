@@ -38,6 +38,8 @@ exports.verifyUser = async (req, res, next) => {
   // getting token and check of it's there
 
   const token = req.cookies.jwt;
+
+  console.log(token);
   // let token;
   // if (
   //   req.headers.authorization &&

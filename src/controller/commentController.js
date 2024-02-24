@@ -76,7 +76,7 @@ const createComment = async (req, res) => {
 
 const updateComment = async (req, res) => {
   const { id } = req.params;
-  const { likeEmail, disLikeEmail } = req.body;
+  const { likeEmail, disLikeEmail, commentMsg } = req.body;
 
   try {
     const comment = await Comment.findById(id);
@@ -107,6 +107,10 @@ const updateComment = async (req, res) => {
           $pull: { likesCount: disLikeEmail },
         };
       }
+    }
+
+    if (commentMsg) {
+      updateFields = { commentMsg };
     }
 
     const updateComment = await Comment.findByIdAndUpdate(id, updateFields, {
