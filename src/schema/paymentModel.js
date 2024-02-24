@@ -1,12 +1,4 @@
 const mongoose = require("mongoose");
-//     "email": "user.email",
-//     "name": "user.displayName",
-//     "country": "selectedCountry",
-//     "price": "properties.price",
-//     "serviceCharge": "serviceChargeAmount",
-//     "transactionId": "paymentIntent.id",
-//     "date": "new Date()",
-//     "status": "pending"
 
 const paymentSchema = new mongoose.Schema({
   customer_name: {
@@ -35,6 +27,14 @@ const paymentSchema = new mongoose.Schema({
   status: {
     type: String,
     required: [true, "Status is required"],
+  },
+  property_id: {
+    type: String,
+    required: [true, "property id is required"],
+  },
+  owner_email: {
+    type: String,
+    required: [true, "owner email is required"],
   },
 });
 
