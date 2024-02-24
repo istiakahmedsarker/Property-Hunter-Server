@@ -116,6 +116,11 @@ const propertySchema = new mongoose.Schema({
   favorites: {
     type: [],
   },
+  isPending: {
+    type: Boolean,
+    default: true,
+    required: [true, "is pending in required as a Boolean value"],
+  },
 });
 
 const Property = mongoose.model("Property", propertySchema);
