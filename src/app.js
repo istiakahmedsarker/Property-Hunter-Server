@@ -1,11 +1,32 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 const app = express();
 
+app.use(
+  cors({
+    origin: ['http://localhost:5173'],
+    credentials: true,
+  })
+);
+app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
 
+const blogRouter = require('./routes/blogRoutes');
+const propertyRouter = require('./routes/propertyRoutes');
+const commentRouter = require('./routes/commentRoutes');
+const userRouter = require('./routes/userRoutes');
+const paymentRouter = require('./routes/paymentRoutes');
+const buyerInquiry = require('./routes/buyerInqueryRouters');
+const propertyFavorite = require('./routes/propertyFavoriteRouters');
+const likeDislikeRoutes = require('./routes/likeDislikeCountsRoutes');
+const announcementRouters = require('./routes/annoucementRouters');
+const getFeaturedPropertiesRoutes = require('./routes/getFeaturedPropertiesRoutes');
+const getAnnouncementRoutes = require('./routes/getAnnouncementRoutes');
+const subscriberRouters = require('./routes/subscribersRoutes');
+const sendEmailRouter = require('./routes/sendEmailRouters');
+const authRouter = require('./routes/authRouter');
 const blogRouter = require("./routes/blogRoutes");
 const propertyRouter = require("./routes/propertyRoutes");
 const commentRouter = require("./routes/commentRoutes");
@@ -28,20 +49,20 @@ app.get('/', (req, res) => {
 });
 
 // routes mounting
-app.use("/api/v1/blogs", blogRouter);
-app.use("/api/v1/properties", propertyRouter);
-app.use("/api/v1/comments", commentRouter);
-// app.use("/api/v1/apartments", apartmentRouter);
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/payments", paymentRouter);
-app.use("/api/v1/buyer-inquiries", buyerInquiry);
-app.use("/api/v1/property-favorite", propertyFavorite);
-app.use("/api/v1/like-dislike", likeDislikeRoutes);
-app.use("/api/v1/announcement", announcementRouters);
-app.use("/api/v1/getFeaturedProperties", getFeaturedPropertiesRoutes);
-app.use("/api/v1/getAnnouncement", getAnnouncementRoutes);
-app.use("/api/v1/subscriber", subscriberRouters);
-app.use("/api/v1/send-emails", sendEmailRouter);
+app.use('/api/v1/blogs', blogRouter);
+app.use('/api/v1/properties', propertyRouter);
+app.use('/api/v1/comments', commentRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/payments', paymentRouter);
+app.use('/api/v1/buyer-inquiries', buyerInquiry);
+app.use('/api/v1/property-favorite', propertyFavorite);
+app.use('/api/v1/like-dislike', likeDislikeRoutes);
+app.use('/api/v1/announcement', announcementRouters);
+app.use('/api/v1/getFeaturedProperties', getFeaturedPropertiesRoutes);
+app.use('/api/v1/getAnnouncement', getAnnouncementRoutes);
+app.use('/api/v1/subscriber', subscriberRouters);
+app.use('/api/v1/send-emails', sendEmailRouter);
+app.use('/api/v1/jwt', authRouter);
 
 // payment stripe
 

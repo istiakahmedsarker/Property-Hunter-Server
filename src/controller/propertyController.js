@@ -131,6 +131,27 @@ const changePropertyStatus = async (req, res) => {
   }
 };
 
+const deleteProperty = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Property.findByIdAndDelete(id);
 
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'Fail',
+      message: err,
+    });
+  }
+};
 
-module.exports = { getAllProperty, createProperty, getSingleProperty, changePropertyStatus };
+module.exports = {
+  getAllProperty,
+  createProperty,
+  getSingleProperty,
+  changePropertyStatus,
+  deleteProperty,
+};
