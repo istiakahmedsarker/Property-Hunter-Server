@@ -121,6 +121,15 @@ const propertySchema = new mongoose.Schema({
     default: true,
     required: [true, "is pending in required as a Boolean value"],
   },
+  job_preferences: {
+    type: Array,
+  },
+  minimum_salary: {
+    type: Number,
+  },
+  accept_type: {
+    type: String,
+  },
 });
 
 const Property = mongoose.model("Property", propertySchema);
