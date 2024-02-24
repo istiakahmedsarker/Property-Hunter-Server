@@ -27,6 +27,20 @@ const getAnnouncementRoutes = require('./routes/getAnnouncementRoutes');
 const subscriberRouters = require('./routes/subscribersRoutes');
 const sendEmailRouter = require('./routes/sendEmailRouters');
 const authRouter = require('./routes/authRouter');
+const blogRouter = require("./routes/blogRoutes");
+const propertyRouter = require("./routes/propertyRoutes");
+const commentRouter = require("./routes/commentRoutes");
+// const apartmentRouter = require("./routes/apartmentRoutes");
+const userRouter = require("./routes/userRoutes");
+const paymentRouter = require("./routes/paymentRoutes");
+const buyerInquiry = require("./routes/buyerInqueryRouters");
+const propertyFavorite = require("./routes/propertyFavoriteRouters");
+const likeDislikeRoutes = require("./routes/likeDislikeCountsRoutes");
+const announcementRouters = require("./routes/annoucementRouters");
+const getFeaturedPropertiesRoutes = require("./routes/getFeaturedPropertiesRoutes");
+const getAnnouncementRoutes = require("./routes/getAnnouncementRoutes");
+const subscriberRouters = require("./routes/subscribersRoutes");
+const sendEmailRouter = require("./routes/sendEmailRouters");
 // initial server start
 app.get('/', (req, res) => {
   res

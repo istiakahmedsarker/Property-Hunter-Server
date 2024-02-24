@@ -151,6 +151,23 @@ const makeUser = async (req, res) => {
     });
   }
 };
+
+const getAgents = async (req, res) => {
+  try {
+    // Find 3 users with the 'moderator' role
+    const agents = await User.find({ role: "moderator" }).limit(3);
+    res.status(200).json({
+      status: "success",
+      data: agents,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
+
 module.exports = {
   getAllUser,
   createUser,
@@ -160,4 +177,5 @@ module.exports = {
   makeMember,
   makeUser,
   getSingleUserWithEmail,
+  getAgents,
 };
