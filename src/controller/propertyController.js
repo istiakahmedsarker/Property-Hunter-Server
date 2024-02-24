@@ -2,7 +2,6 @@ const Property = require('../schema/propertyModel');
 
 const getAllProperty = async (req, res) => {
   try {
-    console.log(req.query);
     const queryObject = {};
 
     //search by title
@@ -17,7 +16,13 @@ const getAllProperty = async (req, res) => {
 
     //filter by property type
     if (req.query.propertyType) {
+      console.log(req.query);
       queryObject.propertyType = req.query.propertyType;
+    }
+
+    // get property by email
+    if (req.query.email) {
+      queryObject['ownerInformation.email'] = req.query.email;
     }
 
     let query = Property.find(queryObject);
