@@ -1,1 +1,4 @@
 npm i dotenv
+npm install nodemailer
+nmp i jsonwebtoken
+npm i cookie-parser

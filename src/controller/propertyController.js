@@ -106,4 +106,52 @@ const createProperty = async (req, res) => {
   }
 };
 
-module.exports = { getAllProperty, createProperty, getSingleProperty };
+const changePropertyStatus = async (req, res) => {
+  try {
+    const propertyId = req.params.propertyId; // Assuming you have the property ID in the request parameters
+
+    // Update the property status to "sold"
+    const updatedProperty = await Property.findByIdAndUpdate(
+      propertyId,
+      { status: 'sold' },
+      { new: true } // This option ensures that the updated document is returned
+    );
+
+    res.status(200).json({
+      status: 'success',
+      data: updatedProperty,
+    });
+  } catch (err) {
+    // Handle errors and send a 400 Bad Request response
+    console.error(err);
+    res.status(400).json({
+      status: 'fail',
+      message: 'Failed to update property status',
+    });
+  }
+};
+
+const deleteProperty = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Property.findByIdAndDelete(id);
+
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'Fail',
+      message: err,
+    });
+  }
+};
+
+module.exports = {
+  getAllProperty,
+  createProperty,
+  getSingleProperty,
+  changePropertyStatus,
+  deleteProperty,
+};
