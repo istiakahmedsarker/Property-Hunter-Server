@@ -116,6 +116,25 @@ const deleteInquiry = async (req, res) => {
     });
   }
 };
+
+// find by owner email
+const getByOwnerEmail = async (req, res) => {
+  try {
+    const ownerEmail = req.params.email;
+    const data = await BuyerInquiry.find({
+      buyer_property_ownerEmail: ownerEmail,
+    });
+    res.status(200).json({
+      status: "success",
+      data: data,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
 module.exports = {
   getAllInquiry,
   createInquiry,
@@ -123,4 +142,5 @@ module.exports = {
   statusReject,
   deleteInquiry,
   getInquiryById,
+  getByOwnerEmail,
 };
