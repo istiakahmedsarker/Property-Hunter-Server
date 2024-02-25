@@ -6,7 +6,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "https://property-hunter-tm.netlify.app",
+      "https://property-hunter-react.vercel.app",
+    ],
     credentials: true,
   })
 );
