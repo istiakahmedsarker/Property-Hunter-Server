@@ -23,6 +23,11 @@ const blogSchema = new mongoose.Schema(
       type: [String],
       required: [true, 'A blog must  have a image'],
     },
+    author: {
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'A blog must have a author'],
+    },
     // comments: [
     //   {
     //     type: mongoose.Types.ObjectId,
@@ -41,6 +46,12 @@ blogSchema.virtual('comments', {
   foreignField: 'blogId',
   localField: '_id',
 });
+
+// blogSchema.virtual('author', {
+//   ref: 'User',
+//   foreignField: 'author',
+//   localField: '_id',
+// });
 
 const Blog = mongoose.model('Blog', blogSchema);
 
