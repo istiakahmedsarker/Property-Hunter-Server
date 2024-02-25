@@ -55,10 +55,15 @@ const getAllBlog = async (req, res) => {
 const getSingleBlog = async (req, res) => {
   const { id } = req.params;
   try {
-    const blog = await Blog.findById(id).populate({
-      path: 'comments',
-      select: '-__v -createdDate',
-    });
+    const blog = await Blog.findById(id)
+      .populate({
+        path: 'comments',
+        select: '-__v -createdDate',
+      })
+      .populate({
+        path: 'author',
+        select: '-__v  -role -id',
+      });
 
     res.status(200).json({
       status: 'success',
