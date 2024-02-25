@@ -2,7 +2,9 @@ const Property = require("../schema/propertyModel");
 
 const getAllProperty = async (req, res) => {
   try {
-    const queryObject = {};
+    const queryObject = {
+      isPending: { $ne: true }, // Add condition to filter properties where isPending is not true
+    };
 
     //search by title
     if (req.query.title) {
