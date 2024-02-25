@@ -3,12 +3,11 @@ const User = require('../schema/userModel');
 
 exports.accessToken = async (req, res) => {
   const { email } = req.body;
-  console.log(email);
 
   const user = await User.findOne({ email });
 
   const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN, {
-    expiresIn: '1h',
+    expiresIn: '90d',
   });
 
   //   console.log(token);
@@ -39,7 +38,6 @@ exports.verifyUser = async (req, res, next) => {
 
   const token = req.cookies.jwt;
 
-  console.log(token);
   // let token;
   // if (
   //   req.headers.authorization &&
