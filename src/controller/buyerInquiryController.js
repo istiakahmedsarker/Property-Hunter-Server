@@ -85,8 +85,7 @@ const statusReject = async (req, res) => {
 const getInquiryById = async (req, res) => {
   try {
     const id = req.params.inquiryid;
-    const filter = { _id: id };
-    const data = await BuyerInquiry.findOneAndUpdate({ filter });
+    const data = await BuyerInquiry.findById(id);
     res.status(200).json({
       status: "success",
       data: {
