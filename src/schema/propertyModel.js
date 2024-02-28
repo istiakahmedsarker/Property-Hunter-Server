@@ -114,7 +114,7 @@ const propertySchema = new mongoose.Schema({
     },
   },
   favorites: {
-    type: [],
+    type: Array,
   },
   isPending: {
     type: Boolean,

@@ -63,6 +63,9 @@ const buyerInquirySchema = mongoose.Schema({
   buyer_property_id: {
     type: String,
   },
+  date: {
+    type: String,
+  },
 });
 
 const BuyerInquiry = mongoose.model("BuyerInquiry", buyerInquirySchema);

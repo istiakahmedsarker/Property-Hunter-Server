@@ -36,6 +36,12 @@ const paymentSchema = new mongoose.Schema({
     type: String,
     required: [true, "owner email is required"],
   },
+  time: {
+    type: String,
+  },
+  date: {
+    type: String,
+  },
 });
 
 const Payment = mongoose.model("payments", paymentSchema);

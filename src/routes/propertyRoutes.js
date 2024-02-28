@@ -6,11 +6,13 @@ const {
   changePropertyStatus,
   deleteProperty,
   updateIsPending,
+  topFavored,
 } = require("../controller/propertyController");
 const { verifyUser, restricTo } = require("../controller/authController");
 const router = express.Router();
 
 router.route("/").get(getAllProperty).post(createProperty);
+router.route("/top-favored").get(topFavored);
 router
   .route("/:id")
   .get(getSingleProperty)

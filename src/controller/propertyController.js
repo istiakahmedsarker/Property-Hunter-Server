@@ -178,6 +178,59 @@ const updateIsPending = async (req, res) => {
     });
   }
 };
+
+// get top 6 favorite properties
+const topFavored = async (req, res) => {
+  try {
+    const data = await Property.aggregate([
+      {
+        $match: {
+          favorites: { $exists: true, $ne: null }, // Filter out documents where favorites field is missing or null
+        },
+      },
+      {
+        $project: {
+          location: 1,
+          parking: 1,
+          rooms: 1,
+          ownerInformation: 1,
+          propertyTitle: 1,
+          propertyType: 1,
+          price: 1,
+          squareFootage: 1,
+          easement: 1,
+          description: 1,
+          propertyImages: 1,
+          utilities: 1,
+          floorNumber: 1,
+          blockName: 1,
+          apartmentNumber: 1,
+          yearBuilt: 1,
+          propertyStatus: 1,
+          favorites: 1,
+          favoritesCount: { $size: "$favorites" }, // Calculate the size of the favorites array
+        },
+      },
+      {
+        $sort: { favoritesCount: -1 }, // Sort by favoritesCount in descending order
+      },
+      {
+        $limit: 6, // Limit the result to 6 documents
+      },
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      result: data.length,
+      data: data,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err.message,
+    });
+  }
+};
 module.exports = {
   getAllProperty,
   createProperty,
@@ -185,4 +238,5 @@ module.exports = {
   changePropertyStatus,
   deleteProperty,
   updateIsPending,
+  topFavored,
 };
