@@ -1,4 +1,4 @@
-const Property = require("../schema/propertyModel");
+const Property = require('../schema/propertyModel');
 
 const getAllProperty = async (req, res) => {
   try {
@@ -8,7 +8,7 @@ const getAllProperty = async (req, res) => {
 
     //search by title
     if (req.query.title) {
-      queryObject.propertyTitle = { $regex: req.query.title, $options: "i" };
+      queryObject.propertyTitle = { $regex: req.query.title, $options: 'i' };
     }
 
     // filter by status
@@ -24,20 +24,32 @@ const getAllProperty = async (req, res) => {
 
     // get property by email
     if (req.query.email) {
-      queryObject["ownerInformation.email"] = req.query.email;
+      queryObject['ownerInformation.email'] = req.query.email;
+    }
+
+    if (req.query.bedrooms) {
+      queryObject['rooms.bedRooms'] = { $gte: req.query.bedrooms };
+    }
+
+    if (req.query.bathrooms) {
+      queryObject['rooms.bathRooms'] = { $gte: req.query.bathrooms };
+    }
+
+    if (req.query.price) {
+      queryObject.price = { $lte: req.query.price };
     }
 
     let query = Property.find(queryObject);
 
     //sorting
     if (req.query.sort) {
-      const sortItem = req.query.sort.replace(",", " ");
+      const sortItem = req.query.sort.replace(',', ' ');
       query = query.sort(sortItem);
     }
 
     //limited field
     if (req.query.select) {
-      const selectItem = req.query.select.replace(",", " ");
+      const selectItem = req.query.select.replace(',', ' ');
       query = query.select(selectItem);
     }
 
@@ -58,7 +70,7 @@ const getAllProperty = async (req, res) => {
     // const properties = await Property.find();
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       result: properties.length,
       data: {
         properties,
@@ -69,7 +81,7 @@ const getAllProperty = async (req, res) => {
     });
   } catch (err) {
     res.status(400).json({
-      status: "Fail",
+      status: 'Fail',
       message: err,
     });
   }
@@ -81,14 +93,14 @@ const getSingleProperty = async (req, res) => {
     const property = await Property.findById(id);
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         property,
       },
     });
   } catch (err) {
     res.status(400).json({
-      status: "Fail",
+      status: 'Fail',
       message: err,
     });
   }
@@ -100,14 +112,14 @@ const createProperty = async (req, res) => {
     const newProperty = await Property.create(req.body);
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         newProperty,
       },
     });
   } catch (err) {
     res.status(400).json({
-      status: "Fail",
+      status: 'Fail',
       message: err,
     });
   }
@@ -120,20 +132,20 @@ const changePropertyStatus = async (req, res) => {
     // Update the property status to "sold"
     const updatedProperty = await Property.findByIdAndUpdate(
       propertyId,
-      { status: "sold" },
+      { status: 'sold' },
       { new: true } // This option ensures that the updated document is returned
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: updatedProperty,
     });
   } catch (err) {
     // Handle errors and send a 400 Bad Request response
     console.error(err);
     res.status(400).json({
-      status: "fail",
-      message: "Failed to update property status",
+      status: 'fail',
+      message: 'Failed to update property status',
     });
   }
 };
@@ -144,12 +156,12 @@ const deleteProperty = async (req, res) => {
     await Property.findByIdAndDelete(id);
 
     res.status(204).json({
-      status: "success",
+      status: 'success',
       data: null,
     });
   } catch (err) {
     res.status(400).json({
-      status: "Fail",
+      status: 'Fail',
       message: err,
     });
   }
@@ -167,14 +179,14 @@ const updateIsPending = async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: { isPending: false },
     });
   } catch (err) {
     console.error(err);
     res.status(400).json({
-      status: "fail",
-      message: "Failed to update property status",
+      status: 'fail',
+      message: 'Failed to update property status',
     });
   }
 };

@@ -9,7 +9,7 @@ const {
 const { verifyUser } = require('../controller/authController');
 const router = express.Router();
 
-router.route('/').get(getAllComment).post(createComment);
+router.route('/').get(getAllComment).post(verifyUser, createComment);
 router
   .route('/:id')
   .get(getSingleComment)
