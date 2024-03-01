@@ -64,8 +64,29 @@ const deletePayment = async (req, res) => {
   }
 };
 
+// find by owner email
+const getByOwner = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const payments = await Payment.find({ owner_email: email });
+    res.status(200).json({
+      status: "success",
+      result: payments.length,
+      data: {
+        payments,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
+
 module.exports = {
   getAllPayment,
   createPayment,
   deletePayment,
+  getByOwner,
 };

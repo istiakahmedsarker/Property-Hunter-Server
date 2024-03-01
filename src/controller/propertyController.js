@@ -2,7 +2,9 @@ const Property = require('../schema/propertyModel');
 
 const getAllProperty = async (req, res) => {
   try {
-    const queryObject = {};
+    const queryObject = {
+      isPending: { $ne: true }, // Add condition to filter properties where isPending is not true
+    };
 
     //search by title
     if (req.query.title) {
@@ -23,6 +25,18 @@ const getAllProperty = async (req, res) => {
     // get property by email
     if (req.query.email) {
       queryObject['ownerInformation.email'] = req.query.email;
+    }
+
+    if (req.query.bedrooms) {
+      queryObject['rooms.bedRooms'] = { $gte: req.query.bedrooms };
+    }
+
+    if (req.query.bathrooms) {
+      queryObject['rooms.bathRooms'] = { $gte: req.query.bathrooms };
+    }
+
+    if (req.query.price) {
+      queryObject.price = { $lte: req.query.price };
     }
 
     let query = Property.find(queryObject);
@@ -153,10 +167,34 @@ const deleteProperty = async (req, res) => {
   }
 };
 
+// update isPending value to false
+const updateIsPending = async (req, res) => {
+  try {
+    const propertyId = req.params.id;
+    // Update the property isPending to false
+    const updatedProperty = await Property.findByIdAndUpdate(
+      propertyId,
+      { isPending: false },
+      { new: true }
+    );
+
+    res.status(200).json({
+      status: 'success',
+      data: { isPending: false },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      status: 'fail',
+      message: 'Failed to update property status',
+    });
+  }
+};
 module.exports = {
   getAllProperty,
   createProperty,
   getSingleProperty,
   changePropertyStatus,
   deleteProperty,
+  updateIsPending,
 };

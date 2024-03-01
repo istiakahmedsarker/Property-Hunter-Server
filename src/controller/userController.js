@@ -153,18 +153,38 @@ const makeUser = async (req, res) => {
     });
   }
 };
+// update user
+const updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = req.body;
+    const updatedUser = await User.findByIdAndUpdate(userId, user, {
+      new: true,
+    });
 
+    res.status(200).json({
+      status: 'success',
+      data: updatedUser,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      status: 'fail',
+      message: 'Failed to update property status',
+    });
+  }
+};
 const getAgents = async (req, res) => {
   try {
     // Find 3 users with the 'moderator' role
-    const agents = await User.find({ role: "moderator" }).limit(3);
+    const agents = await User.find({ role: 'moderator' }).limit(3);
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: agents,
     });
-  } catch (error) {
+  } catch (err) {
     res.status(400).json({
-      status: "Fail",
+      status: 'Fail',
       message: err,
     });
   }
@@ -180,4 +200,5 @@ module.exports = {
   makeUser,
   getSingleUserWithEmail,
   getAgents,
+  updateUser,
 };

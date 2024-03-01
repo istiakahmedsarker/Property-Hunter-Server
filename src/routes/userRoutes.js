@@ -9,6 +9,7 @@ const {
   makeUser,
   getSingleUserWithEmail,
   getAgents,
+  updateUser,
 } = require("../controller/userController");
 
 const router = express.Router();
@@ -20,5 +21,6 @@ router.route("/make-moderator/:id").put(makeModerator);
 router.route("/make-member/:id").put(makeMember);
 router.route("/make-user/:id").put(makeUser);
 router.route("/email/:email").get(getSingleUserWithEmail);
+router.route("/update-user/:id").put(updateUser);
 
 module.exports = router;
