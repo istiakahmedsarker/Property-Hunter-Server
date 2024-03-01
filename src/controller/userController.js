@@ -163,28 +163,28 @@ const updateUser = async (req, res) => {
     });
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: updatedUser,
     });
   } catch (err) {
     console.error(err);
     res.status(400).json({
-      status: "fail",
-      message: "Failed to update property status",
+      status: 'fail',
+      message: 'Failed to update property status',
     });
   }
 };
 const getAgents = async (req, res) => {
   try {
     // Find 3 users with the 'moderator' role
-    const agents = await User.find({ role: "moderator" }).limit(3);
+    const agents = await User.find({ role: 'moderator' }).limit(3);
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: agents,
     });
-  } catch (error) {
+  } catch (err) {
     res.status(400).json({
-      status: "Fail",
+      status: 'Fail',
       message: err,
     });
   }
